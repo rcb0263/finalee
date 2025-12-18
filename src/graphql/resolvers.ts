@@ -66,8 +66,18 @@ export const resolvers:IResolvers= {
                 _id: newPokemon._id || new ObjectId()  // genera uno si no existe
             };
             return newPokemon;
-        }
+        },
+        freePokemon: async (_, { ownedPokemonId }, context) => {
+            const db = getDB();
+            const userId = context.user?._id || context.user;
+            if (!userId) throw new Error("Not authenticated");
 
+
+            const trainer = await db.collection("Trainers").findOne({ _id: new ObjectId(userId) });
+            if (!trainer) throw new Error("Trainer not found");
+
+            return trainer;
+        }
     },
     Trainer: {
         pokemons: async (parent, _, { db }) => {
