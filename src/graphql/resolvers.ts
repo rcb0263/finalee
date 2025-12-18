@@ -63,7 +63,7 @@ export const resolvers:IResolvers= {
             const newPokemon = trainer.pokemons[trainer.pokemons.length - 1];
             const res = {
                 ...newPokemon,
-                _id: newPokemon._id || new ObjectId()  // genera uno si no existe
+                _id: newPokemon._id || new ObjectId()
             };
             return newPokemon;
         },
